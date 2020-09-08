@@ -1,8 +1,11 @@
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 public class Enigma{
 
     public static List<String> codeList;
     public static List<String> alphabet;
+    public static Scanner sc;
     
 
     public static void main(String[]args){
@@ -22,18 +25,44 @@ public class Enigma{
         rotorList.add(rotor3);
 
 
-        
-        EnigmaStarter enigmaStarter =new EnigmaStarter(rotorList,"IEM","ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZA");//STUVWXYZA
+        sc=new Scanner(System.in);
+        System.out.println("Enter message to cipher : ");
+        String message=sc.nextLine();
+        System.out.println("Please enter rotor configuration : ");
+        String rotorConfiguration=sc.nextLine();
+
+        if(checkParams(message,rotorConfiguration))
+            return;
+
+        EnigmaStarter enigmaStarter =new EnigmaStarter(rotorList,rotorConfiguration,message);
         enigmaStarter.decode();
-
-       
-        
-        //printer();
-
-
+    
     }
 
-    public static void printer(){                       
+    public static boolean checkParams(String message,String rotorConfiguration){
+        //checking message and rotor configuration for any unsupported characters 
+        Pattern pattern = Pattern.compile("[^A-Za-z]");
+        Matcher matcherForMessage = pattern.matcher(message);
+        Matcher matcherForRotor= pattern.matcher(rotorConfiguration);
+        boolean messageWrong=matcherForMessage.find();
+        boolean rotorConfigWrong=matcherForRotor.find();
+        boolean permission=false;
+        if(messageWrong)
+            System.out.println("Message format is not supported");
+        
+        if(rotorConfigWrong)
+            System.out.println("Rotor configuration format is not supported");
+        if(rotorConfiguration.length() != 3){
+            rotorConfigWrong=true;
+            System.out.println("Rotor configuration is too long expected -> 3");
+        }
+        permission= (messageWrong | rotorConfigWrong);
+        return permission;
+    }
+
+
+
+    public static void printer(){                // function to provide list.add code for this code            
         String code = "YRUHQSLDPXNGOKMIEBFZCWVJAT";
         StringBuilder codeR=new StringBuilder(code);
         StringBuilder printValue=new StringBuilder();

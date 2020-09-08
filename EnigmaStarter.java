@@ -17,11 +17,11 @@ public class EnigmaStarter{
 
         this.rotorList=rotorList;
         StringBuilder sb=new StringBuilder(rotorStartPosition);//Translated to "our language" no need to worry  
-        this.rotorStartPosition=sb.toString();        // Reversing rotor start position for conviniance
+        this.rotorStartPosition=sb.toString().toUpperCase();        // Reversing rotor start position for conviniance
         reflectorBList=new ArrayList<String>();
         reflectorBList.add("Y");reflectorBList.add("R");reflectorBList.add("U");reflectorBList.add("H");reflectorBList.add("Q");reflectorBList.add("S");reflectorBList.add("L");reflectorBList.add("D");reflectorBList.add("P");reflectorBList.add("X");reflectorBList.add("N");reflectorBList.add("G");reflectorBList.add("O");reflectorBList.add("K");reflectorBList.add("M");reflectorBList.add("I");reflectorBList.add("E");reflectorBList.add("B");reflectorBList.add("F");reflectorBList.add("Z");reflectorBList.add("C");reflectorBList.add("W");reflectorBList.add("V");reflectorBList.add("J");reflectorBList.add("A");reflectorBList.add("T");
-        this.sentence=sentence;
-        System.out.println(sentence+"is Sentence "+sentence.length());
+        this.sentence=sentence.toUpperCase();
+        System.out.println(sentence+" is Sentence "+sentence.length());
         alphabetList=new ArrayList<String>();
         alphabetList.add("A");alphabetList.add("B");alphabetList.add("C");alphabetList.add("D");alphabetList.add("E");alphabetList.add("F");alphabetList.add("G");alphabetList.add("H");alphabetList.add("I");alphabetList.add("J");alphabetList.add("K");alphabetList.add("L");alphabetList.add("M");alphabetList.add("N");alphabetList.add("O");alphabetList.add("P");alphabetList.add("Q");alphabetList.add("R");alphabetList.add("S");alphabetList.add("T");alphabetList.add("U");alphabetList.add("V");alphabetList.add("W");alphabetList.add("X");alphabetList.add("Y");alphabetList.add("Z");
         decoded=new StringBuilder();
@@ -68,7 +68,6 @@ public String reverseFind(Rotor rotor,String letter,int a){ //finding letter fro
     }else{
          entryLetter=alphabetList.get(giveCircularIndex(position+generalRotorPositions[a-1],26)); //D
     }
-    System.out.println("Position : "+position+" entryLetter :"+entryLetter+"Rotor number"+a);
     return entryLetter;
 }
 
@@ -103,6 +102,7 @@ public void rotorConfiguration(){  // Changing rotorConfig param inside rotor ob
     for(int i=0;i<rotorList.size();i++){
         Rotor rotor = rotorList.get(i);   // 0 = 1 Rotor
         rotor.rotorConfig=getPositionedArray(rotor.rotorConfig,String.valueOf(rotorStartPosition.charAt(i)));
+        
     }
 }//End
 
@@ -111,7 +111,7 @@ public List<String> getPositionedArray(List<String> code,String position){   // 
     if(posAlpha==0){
         return code;
     }
-System.out.println("Position index is "+posAlpha);
+
 for(int i=0;i<posAlpha;i++){
     code.add(code.get(0));
     code.remove(0);
@@ -121,7 +121,6 @@ return code;
 
 
 public void click(int currentRotorNumber){                                         //Handles all possible gear actions. Needed to call after reading each letter.
-    System.out.println("Current__"+generalRotorPositions[currentRotorNumber]);
     int currentRealRNumber=rotorList.get(currentRotorNumber).rotorNumber;
     generalRotorPositions[currentRotorNumber]=generalRotorPositions[currentRotorNumber]+1;
 
@@ -139,7 +138,6 @@ public void click(int currentRotorNumber){                                      
         if(currentRotorNumber+1==2){
             if(generalRotorPositions[currentRotorNumber]==4){
                 turnover=true;
-                System.out.println("Turnover /*/*/*/*/*/*/*/ "+alphabetList.get(generalRotorPositions[currentRotorNumber]));
             }
             if(generalRotorPositions[currentRotorNumber]==5){   
                      click(currentRotorNumber+1);
