@@ -1,6 +1,6 @@
 import java.util.*;
 public class EnigmaStarter{
-
+//Debug Version
     List<Rotor> rotorList;
     String rotorStartPosition;
     String sentence;
