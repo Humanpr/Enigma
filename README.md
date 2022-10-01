@@ -1,2 +1,2 @@
 # Enigma
-Command line based Enigma- cipher machine simulator.
+Old project of mine. Command line based Enigma- cipher machine simulator.
